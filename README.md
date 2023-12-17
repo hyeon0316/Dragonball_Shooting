@@ -16,6 +16,10 @@
 https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/CGObject.cpp#L3-L65
 <br/>
 
+- 스프라이트 그리기(순차적으로 표시(애니메이션), 배경 무한스크롤, 스킬 표현 등)
+https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CGObject.cpp#L12-L58
+https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CSprite.cpp#L32-L222
+
 - 경과된 시간 값을 통해 플레이어, 적, 발사체 움직임 등 여러 동작에 사용되는 시간 측정
 https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/CTime.cpp#L14-L34
 <br/>
