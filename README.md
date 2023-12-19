@@ -12,10 +12,6 @@
 - https://youtu.be/k7A51_PhnA4
 
 ## 코드 목록
-- 모든 객체가 상속받는 기본적인 클래스로 필요한 변수와 함수를 포함
-https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/CGObject.cpp#L3-L65
-<br/>
-
 - 스프라이트 그리기(순차적으로 표시(애니메이션), 배경 무한스크롤, 스킬 표현 등)
 https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CGObject.cpp#L12-L58
 https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CSprite.cpp#L32-L222
