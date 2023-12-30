@@ -8,34 +8,36 @@
 
 #include<windows.h>		//기본 윈도우 헤더파일
 #include<windowsx.h>	//많은 매크로가 정의 되어있다.
-
 #include<ddraw.h>
 #include<dinput.h>
 
 #include"CBMP.h"
-#include"CTimer.h"
-#include"CSprite.h"
-#include"CEnemy.h"
-#include"myship.h"
-#include"mymissile.h"
-#include"CEnemyMissile.h"
-#include"CExploding.h"
-#include"CBoss.h"
-#include"CBossMissile.h"
-#include"CGObject.h"
-#include "item.h"
-#include"define.h"
+#include"Timer.h"
+#include"Sprite.h"
+#include"Enemy.h"
+#include"Player.h"
+#include"PlayerMissile.h"
+#include"EnemyMissile.h"
+#include"BossMissile.h"
+#include "Item.h"
 #include "CAnimation.h"
+#include "ItemSlot.h"
+#include "GameEnum.h"
+#include "FirstBoss.h"
+#include "SecondBoss.h"
+#include "LastBoss.h"
+#include "define.h"
 
 
 LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-extern bool InitializeDirectX(void);	//전역함수인데 함수일경우 extern 키워드 생략 가능 
-void GameMain(void);
-void InitGame();
+extern bool InitializeDirectX(void);	
+extern BOOL _InitDirectSound();
 
+void IntroMain();
+void GameMain();
+void InitGame();
 bool LoadBMPandInitSurface();
-bool InitObject();
 
 HWND g_hwnd;
 HINSTANCE g_hInstance;
@@ -51,66 +53,44 @@ HINSTANCE g_hInstance;
 LPDIRECTDRAW7 g_IpDirectDrawObject = NULL;
 LPDIRECTDRAWSURFACE7 g_IpPrimarySurface = NULL;
 LPDIRECTDRAWSURFACE7 g_IpSecondarySurface = NULL;
-
 LPDIRECTINPUT8 g_IpDirectInputObject = NULL;
 LPDIRECTINPUTDEVICE8 g_IpDirectInputKeyboard = NULL;
 
-CSprite g_Boss3MissileSprite;
-CSprite g_EndingSprite;
-CSprite g_Boss3Sprite;
-CSprite g_Boss3IntroSprite;
-CSprite g_Boss2MissileSprite;
-CSprite g_Boss2Sprite;
-CSprite g_MaxPowerSprite;
-CSprite g_SkillLoadingBarSprite;
-CSprite g_SkillSprite;
-CSprite g_SkillSceneSprite;
-CSprite g_ItemSlotSprite;
-CSprite g_BossIconSprite;
-CSprite g_BarrierEffectSprite;
-CSprite g_ItemSprite;
-CSprite g_LifeSprite;
-CSprite g_PlayerIconSprite;
-CSprite g_GameStartSprite;
-CSprite g_QuitSprite;
-CSprite g_IntroSprite;
-CSprite g_TitleSprite;
-CSprite g_BackgroundSprite;
-CSprite g_EnemySprite;
-CSprite g_EnemyMissileSprite;
-CSprite g_MyShipSprite;
-CSprite g_MyMissileSprite;
-CSprite g_ExplodingSprite;
-CSprite g_Boss1Sprite;
-CSprite g_Boss1MissileSprite;
-CSprite g_ClearSprite;
-CSprite g_DeadSprite;
-CSprite g_LoadingSprite;
-CGObject* cgo;
+Sprite g_Boss3MissileSprite;
+Sprite g_EndingSprite;
+Sprite g_Boss3Sprite;
+Sprite g_Boss3IntroSprite;
+Sprite g_Boss2MissileSprite;
+Sprite g_Boss2Sprite;
+Sprite g_MaxPowerSprite;
+Sprite g_SkillLoadingBarSprite;
+Sprite g_SkillSprite;
+Sprite g_SkillSceneSprite;
+Sprite g_ItemSlotSprite;
+Sprite g_BossIconSprite;
+Sprite g_BarrierEffectSprite;
+Sprite g_ItemSprite;
+Sprite g_LifeSprite;
+Sprite g_PlayerIconSprite;
+Sprite g_GameStartSprite;
+Sprite g_QuitSprite;
+Sprite g_IntroSprite;
+Sprite g_TitleSprite;
+Sprite g_BackgroundSprite;
+Sprite g_EnemySprite;
+Sprite g_EnemyMissileSprite;
+Sprite g_MyShipSprite;
+Sprite playerMissileSprite;
+Sprite g_ExplodingSprite;
+Sprite g_Boss1Sprite;
+Sprite g_Boss1MissileSprite;
+Sprite g_ClearSprite;
+Sprite g_DeadSprite;
+Sprite g_LoadingSprite;
 
-CTimer g_Timer;
-bool g_bActiveApp = false;
+EMod curMod;
 
-CEnemy g_Enemy[MAX_XENEMYS][MAX_YENEMYS];
-CEnemyMissile g_EnemyMissile[MAX_XENEMYS][MAX_YENEMYS];
-CMyShip g_MyShip;
-Item g_Item[MAX_ITEM];
-CMyMissile g_MyMissile[MAX_MISSILES];
-CBoss g_Boss1[MAX_BOSS];
-CBoss g_Boss2[MAX_BOSS];
-CBoss g_Boss3[MAX_BOSS];
-CBossMissile g_Boss1Missile[MAX_BOSS_YMISSILES][MAX_BOSS_XMISSILES];
-CBossMissile g_Boss3Missile[MAX_BOSS3_YMISSILES][MAX_BOSS3_XMISSILES];
-CExploding g_Exploding[MAX_EXPLODES];
-CAnimation g_SkillScene[MAX_SECENE];
-CAnimation g_Skill[MAX_SECENE];
-CAnimation g_Boss2Missile[MAX_SECENE];
-CAnimation g_Boss3Intro[MAX_SECENE];
-CAnimation g_Ending[MAX_SECENE];
-extern BOOL _InitDirectSound();
-
-extern int g_Introtimestart;
-
+bool isActiveApp = false;
 
 /*
 1. DirectDraw 객체 생성
@@ -155,12 +135,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 		return 0;
 	if (!_InitDirectSound())
 		return 0;
-	g_Timer.start();
+	Timer::Start();
 	if (!LoadBMPandInitSurface())
 		return 0;
-	if (!InitObject())
-		return 0;
-	g_Introtimestart = g_Timer.time();
+	curMod = EMod::Intro;
+
 	MSG msg;
 	while (true) {
 		if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) { //메시지가 없을때도 즉각 리턴
@@ -169,22 +148,39 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 			TranslateMessage(&msg); //입력 메시지를 가공하여 프로그램에서 사용 가능하도록 함
 			DispatchMessage(&msg); // 윈도우 메시지 처리함수인 WndProc으로 전달
 		}
-		else if (g_bActiveApp)
-			GameMain();
-		else WaitMessage();
+		else if (isActiveApp)
+		{
+			Timer::UpdateDeltatime();
+			switch (curMod)
+			{
+			case EMod::Intro:
+				IntroMain();
+				break;
+			case EMod::Game:
+				GameMain();
+				break;
+			case EMod::Quit:
+				break;
+			default:
+				break;
+			}
+		}
+		else 
+		{
+			WaitMessage();
+		}
 	}
 }
 
 
 LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) { //실질적인 프로그램 처리
 	
-
 	switch (message) {
 	case WM_ACTIVATEAPP:
 		if (wParam)
-			g_bActiveApp = true;
+			isActiveApp = true;
 		else
-			g_bActiveApp = false;
+			isActiveApp = false;
 		break;
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE) DestroyWindow(hwnd);
@@ -359,9 +355,9 @@ bool LoadBMPandInitSurface() {
 			g_IpPrimarySurface->Restore();
 	}
 
-	if (!g_MyMissileSprite.InitSprite(1, 48, 32, COLOR_KEY, g_IpDirectDrawObject))
+	if (!playerMissileSprite.InitSprite(1, 48, 32, COLOR_KEY, g_IpDirectDrawObject))
 		return false;
-	if (!g_MyMissileSprite.LoadFrame(0, TEXT("data\\Char_missile.bmp")))
+	if (!playerMissileSprite.LoadFrame(0, TEXT("data\\Char_missile.bmp")))
 		return false;
 	
 	g_LoadingSprite.Drawing(4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 120, g_IpSecondarySurface, true);
@@ -1706,10 +1702,5 @@ bool LoadBMPandInitSurface() {
 		if (hResult == DDERR_SURFACELOST)
 			g_IpPrimarySurface->Restore();
 	}
-	return true;
-}
-
-
-bool InitObject() {
 	return true;
 }

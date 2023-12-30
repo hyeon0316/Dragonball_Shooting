@@ -1,6 +1,6 @@
 #include "CBoss.h" 
 extern int nBossFrame;
-extern CTimer g_Timer;
+extern Timer g_Timer;
 int g_Boss2Move;
 int g_Boss3Move;
 int g_entireTime;
@@ -23,7 +23,7 @@ CBoss::~CBoss() {
 
 }
 
-void CBoss::Initialize(CSprite* pSprite, int x, int y, CTimer* timer, int CurrentFrame, int FrameInterval, int MoveInterval)
+void CBoss::Initialize(Sprite* pSprite, int x, int y, Timer* timer, int CurrentFrame, int FrameInterval, int MoveInterval)
 {
 	CGObject::Initialize(pSprite, x, y, timer, CurrentFrame, FrameInterval);
 	m_nLastMoveTime = timer->time();
@@ -34,7 +34,7 @@ void CBoss::Move()
 {
 	if (!m_blsLive)
 		return;
-	if (m_pTimer->elapsed(m_nLastMoveTime, m_nMoveInterval))
+	if (m_pTimer->Elapsed(m_nLastMoveTime, m_nMoveInterval))
 	{
 		if (!startMove)//화면밖에서 천천히 인게임으로 들어옴
 		{
@@ -70,7 +70,7 @@ void CBoss::Move2()//2번째 패턴
 	if (!m_blsLive)
 		return;
 
-		if (g_Timer.elapsed(g_entireTime, 1500)) //정해진 3자리 값 중 랜덤 이동
+		if (g_Timer.Elapsed(g_entireTime, 1500)) //정해진 3자리 값 중 랜덤 이동
 		{
 			int arr[3] = { 100,425,700 };
 			int i = rand() % 3;
@@ -82,7 +82,7 @@ void CBoss::Move2()//2번째 패턴
 		}
 		if (!motionOn)
 		{
-			if (g_Timer.elapsed(g_Boss2Move, 1000))
+			if (g_Timer.Elapsed(g_Boss2Move, 1000))
 			{
 				motionOn = true;
 				boss2Missile = true;
@@ -92,7 +92,7 @@ void CBoss::Move2()//2번째 패턴
 		if (motionOn)//3자리 중 하나로 이동하여 멈췄다가 에너지파 발사
 		{
 			nBossFrame = 3;
-			if (g_Timer.elapsed(g_Boss2Move, 1500))
+			if (g_Timer.Elapsed(g_Boss2Move, 1500))
 				boss2Missile = false;
 		}
 }
@@ -102,7 +102,7 @@ void CBoss::Move3()//3번째 패턴
 	if (!m_blsLive)
 		return;
 
-	if (g_Timer.elapsed(g_entireTime2, 1500))
+	if (g_Timer.Elapsed(g_entireTime2, 1500))
 	{
 		m_x = 1200;
 		m_y = 384;
@@ -110,7 +110,7 @@ void CBoss::Move3()//3번째 패턴
 		g_Boss3Move = g_Timer.time();
 		boss3Missile = false;
 	}
-	if (g_Timer.elapsed(g_Boss3Move, 1000))
+	if (g_Timer.Elapsed(g_Boss3Move, 1000))
 	{
 		boss3Missile = true;
 		boss3MissileAtk = true;
@@ -136,7 +136,7 @@ CBossMissile::~CBossMissile() {
 
 }
 
-void CBossMissile::Initialize(CSprite* pSprite, int x, int y, CTimer* timer, int CurrentFrame, int FrameInterval, int MoveInterval)
+void CBossMissile::Initialize(Sprite* pSprite, int x, int y, Timer* timer, int CurrentFrame, int FrameInterval, int MoveInterval)
 {
 	CGObject::Initialize(pSprite, x, y, timer, CurrentFrame, FrameInterval);
 	m_nLastMoveTime = timer->time();
@@ -147,7 +147,7 @@ void CBossMissile::Move()
 {
 	if (!m_blsLive)
 		return;
-	if (m_pTimer->elapsed(m_nLastMoveTime, m_nMoveInterval))
+	if (m_pTimer->Elapsed(m_nLastMoveTime, m_nMoveInterval))
 	{
 		if (startMove) {
 			m_y += m_speedy;
@@ -163,7 +163,7 @@ void CBossMissile::Move3()
 {
 	if (!m_blsLive)
 		return;
-	if (m_pTimer->elapsed(m_nLastMoveTime, m_nMoveInterval))
+	if (m_pTimer->Elapsed(m_nLastMoveTime, m_nMoveInterval))
 	{
 		m_y += 5;
 		if (m_y > 800)

@@ -1,29 +1,33 @@
-#ifndef __Item_h__
-#define __Item_h__
+#pragma once
+#include "GameObject.h"
 
-#include "CGObject.h"
-
-class Item : public CGObject
+class Item : public GameObject
 {
-private:
-	int m_nLastMoveTime;
-	int m_nMoveInterval;
-public:
-	int m_speedx;
-	int m_speedy;
-
-	int n_currentItem;
-
-
-
 public:
 	Item();
-	~Item();
-
+	~Item() = default;
 	void Move();
-	void HpUp(int plusHp);
-	void MpUp(int plusMp);
+	void PlusHp(int plusHp);
+	void PlusMp(int plusMp);
+	void CheckArea();
+	void OnBarrior();
+	void SetFrame(int frame);
+	int GetCurFrame() const;
 	void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
-	void Initialize(CSprite* pSprite, int x, int y, CTimer* timer, int FrameInterval, int MoveInterval);
+	void Initialize(Sprite* pSprite, int x, int y, int frameInterval, int moveInterval);
+private:
+	int m_MoveInterval;
+	int m_SpeedX;
+	int m_SpeedY;
+	system_clock::time_point m_LastMoveTime;
 };
-#endif
+
+inline int Item::GetCurFrame() const
+{
+	return m_CurrentFrame;
+}
+
+inline void Item::SetFrame(int frame)
+{
+	m_CurrentFrame = frame;
+}

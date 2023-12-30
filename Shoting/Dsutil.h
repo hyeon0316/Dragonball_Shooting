@@ -1,16 +1,18 @@
+#pragma once
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+	struct IDirectSoundBuffer;
+	struct IDirectSound;
 
 	typedef struct
 	{
-		BYTE* pbWaveData;               // pointer into wave resource (for restore)
-		DWORD cbWaveSize;               // size of wave data (for restore)
-		int iAlloc;                     // number of buffers.
-		int iCurrent;                   // current buffer
+		BYTE* pbWaveData; // pointer into wave resource (for restore)
+		DWORD cbWaveSize; // size of wave data (for restore)
+		int iAlloc; // mNumber of buffers.
+		int iCurrent; // current buffer
 		IDirectSoundBuffer* Buffers[10]; // list of buffers
-
 	} SNDOBJ, * HSNDOBJ;
 
 	static const char c_szWAV[] = "WAV";

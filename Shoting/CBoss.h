@@ -16,7 +16,7 @@ public:
 public:
 	CBoss();
 	~CBoss();
-	void Initialize(CSprite* pSprite, int x, int y, CTimer* timer, int CurrentFrame, int Frameinterval, int MoveInterval);
+	void Initialize(Sprite* pSprite, int x, int y, Timer* timer, int CurrentFrame, int Frameinterval, int MoveInterval);
 	void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
 	void DrawFrame(LPDIRECTDRAWSURFACE7 lpSurface, int Frame);
 	void Move();

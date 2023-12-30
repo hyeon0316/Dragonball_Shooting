@@ -5,18 +5,11 @@
 
 #include "CBMP.h" 
 
-class CSprite
+class Sprite
 {
-private:
-	int m_nWidth;
-	int m_nHeight;
-	int m_nFrame;
-	LPDIRECTDRAWSURFACE7* m_ppSurface;
-
-	CBMP* m_pBMPArray;
 public:
-	CSprite();
-	~CSprite();
+	Sprite();
+	~Sprite();
 	int GetNumberOfFrame();
 	bool InitSprite(int nFrame, int nWidth, int Height, int nColorKey, LPDIRECTDRAW7 pDirectDraw);
 	bool LoadFrame(int nFrame, TCHAR* filename);
@@ -24,5 +17,12 @@ public:
 	bool Drawing2(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bool bUsingColorKey = true);
 	bool Restore();
 	bool ReleaseAll();
+private:
+	int m_nWidth;
+	int m_nHeight;
+	int m_nFrame;
+	LPDIRECTDRAWSURFACE7* m_ppSurface;
+
+	CBMP* m_pBMPArray;
 };
 #endif#pragma once

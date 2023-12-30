@@ -1,31 +1,42 @@
 #include "CAnimation.h" 
-CAnimation::CAnimation()
-{
-}
 
-CAnimation::~CAnimation()
+void CAnimation::DrawFrame(int frame, LPDIRECTDRAWSURFACE7 lpSurface)
 {
+	if (!m_IsLive)
+		return;
+
+	GameObject::DrawTargetFrame(m_X, m_Y, frame, lpSurface);
 }
 
 void CAnimation::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	CGObject::Draw(m_x, m_y, lpSurface, false);
-	if (m_blsLive)
-		if (m_nCurrentFrame == m_pSprite->GetNumberOfFrame() - 1)												
-			Kill();
+	if (!m_IsLive)
+		return;
+
+	if (m_CurrentFrame == m_Sprite->GetNumberOfFrame() - 1)
+	{
+		Kill();
+	}
+	GameObject::Draw(m_X, m_Y, lpSurface, true);
 }
-void CAnimation::Drawskill(LPDIRECTDRAWSURFACE7 lpSurface)
+
+bool CAnimation::IsDrawEnd(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	CGObject::Draw(m_x, m_y, lpSurface, true);
-	if (m_blsLive)
-		if (m_nCurrentFrame == m_pSprite->GetNumberOfFrame() - 1)
-			Kill();
+	if (!m_IsLive)
+		return false;
+
+	if (m_CurrentFrame == m_Sprite->GetNumberOfFrame() - 1)
+	{
+		Kill();
+		return true;
+	}
+	GameObject::Draw(m_X, m_Y, lpSurface, true);
+	return false;
 }
 
 void CAnimation::DrawEnding(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	CGObject::Draw(m_x, m_y, lpSurface, false);
-	if (m_blsLive)
-		if (m_nCurrentFrame >= 206)
-			m_nCurrentFrame = 206;
+	GameObject::Draw(m_X, m_Y, lpSurface, false);
+	if (m_CurrentFrame >= 206)
+		m_CurrentFrame = 206;
 }

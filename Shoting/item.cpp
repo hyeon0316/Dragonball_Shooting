@@ -1,74 +1,105 @@
-#include "item.h"
-#include "myship.h"
-extern CMyShip g_MyShip;
 #include <time.h>
-extern CSprite g_BarrierEffectSprite;
+#include "Item.h"
+#include "Player.h"
+#include "Dsutil.h"
+#include "ItemSlot.h"
+
+extern Player player;
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
+extern HSNDOBJ Sound[17];
+extern ItemSlot itemSlots[MAX_ITEM_SLOT];
 int barrierTime = 0;
 
-Item::Item() {
-	m_speedx= 4;
-	m_speedy= 4;
+Item::Item()
+	: m_SpeedX(4)
+	, m_SpeedY(4)
+	, m_MoveInterval(0)
+	, m_LastMoveTime(Timer::Now())
+{}
+
+void Item::Initialize(Sprite* pSprite, int x, int y, int frameInterval, int moveInterval)
+{
+	GameObject::Initialize(false, pSprite, x, y, m_CurrentFrame, frameInterval);
+	m_MoveInterval = moveInterval;
 }
 
-Item::~Item()
+void Item::CheckArea()
 {
+	if (abs(m_Y - player.GetY()) < 30)
+	{
+		if (abs(m_X - player.GetX()) < 30)
+		{
+			for (int i = 0; i < MAX_ITEM_SLOT; i++)
+			{
+				if (itemSlots[i].GetItemSpriteIndex() == EMPTY_SLOT)
+					continue;
 
-}
-void Item::Initialize(CSprite* pSprite, int x, int y, CTimer* timer, int FrameInterval, int MoveInterval)
-{
-	CGObject::Initialize(pSprite, x, y, timer, n_currentItem, FrameInterval);
-	m_nLastMoveTime = timer->time();
-	m_nMoveInterval = MoveInterval;
+				itemSlots[i].SetItemSpriteIndex(m_CurrentFrame);
+				Kill();
+				break;
+			}
+		}
+	}
 }
 
-void Item::Move()//아이템 랜덤 이동
+void Item::Move()
 {
-	if (!m_blsLive)
+	if (!m_IsLive)
 		return;
 
-	if (m_pTimer->elapsed(m_nLastMoveTime, m_nMoveInterval))
+	if (Timer::Elapsed(m_LastMoveTime, m_MoveInterval))
 	{	
-		if (m_x > 1366)
+		CheckArea();
+		if (m_X > 1366)
 		{
-			m_x = 1366;
-			m_speedx = rand() % 8 - 8;
-			m_speedy = rand() % 8 - 4;
+			m_X = 1366;
+			m_SpeedX = rand() % 8 - 8;
+			m_SpeedY = rand() % 8 - 4;
 		}
-		if (m_x < 0)
+		if (m_X < 0)
 		{
-			m_x = 0;
-			m_speedx = rand() % 4 + 1;
-			m_speedy = rand() % 8 - 4;
+			m_X = 0;
+			m_SpeedX = rand() % 4 + 1;
+			m_SpeedY = rand() % 8 - 4;
 		}
-		if (m_y > 768)
+		if (m_Y > 768)
 		{
-			m_y = 768;
-			m_speedx = rand() % 8 - 4;
-			m_speedy = rand() % 8 - 8;
+			m_Y = 768;
+			m_SpeedX = rand() % 8 - 4;
+			m_SpeedY = rand() % 8 - 8;
 		}
-		if (m_y < 0)
+		if (m_Y < 0)
 		{
-			m_y = 0;
-			m_speedx = rand() % 8 - 4;
-			m_speedy = rand() % 4 + 1;
+			m_Y = 0;
+			m_SpeedX = rand() % 8 - 4;
+			m_SpeedY = rand() % 4 + 1;
 		}
-		m_x += m_speedx;
-		m_y += m_speedy;
+		m_X += m_SpeedX;
+		m_Y += m_SpeedY;
 	}
 }
 
 void Item::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	CGObject::DrawItem(m_x, m_y, lpSurface);
+	GameObject::DrawTargetFrame(m_X, m_Y, m_CurrentFrame, lpSurface);
 }
 
-void Item::HpUp(int plusHp)
+void Item::PlusHp(int plusHp)
 {
-	g_MyShip.hp += plusHp;
-}
-void Item::MpUp(int plusMp)
-{
-	g_MyShip.mp += plusMp;
+	int result = plusHp + player.GetHp();
+
+	player.SetHp(result > player.GetMaxHp() ? player.GetMaxHp() : result);
+	SndObjPlay(Sound[13], NULL);
 }
 
+void Item::PlusMp(int plusMp)
+{
+	int result = plusMp + player.GetMp();
+	player.SetMp(result > player.GetMaxMp() ? player.GetMaxMp() : result);
+}
+
+void Item::OnBarrior()
+{
+	player.SetBarrier(true);
+	SndObjPlay(Sound[4], NULL);
+}

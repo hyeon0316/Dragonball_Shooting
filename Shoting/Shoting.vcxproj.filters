@@ -15,55 +15,70 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mymissile.h">
+    <ClInclude Include="PlayerMissile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="myship.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CRandom.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CTimer.h">
+    <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CBMP.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CSound.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CEnemy.h">
+    <ClInclude Include="Enemy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CEnemyMissile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CExploding.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CGObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CSprite.h">
+    <ClInclude Include="Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Dsutil.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CBoss.h">
+    <ClInclude Include="BossMissile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CBossMissile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="item.h">
+    <ClInclude Include="Item.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CAnimation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSlot.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEnum.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMissile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstBoss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondBoss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LastBoss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LastBossMissile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalEnemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,16 +86,10 @@
     <ClCompile Include="CBMP.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CBoss.cpp">
+    <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CEnemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="gamemain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CGObject.cpp">
+    <ClCompile Include="Gamemain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Dsutil.cpp">
@@ -89,31 +98,61 @@
     <ClCompile Include="initDirectX.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="mymissile.cpp">
+    <ClCompile Include="PlayerMissile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CRandom.cpp">
+    <ClCompile Include="Sprite.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CSprite.cpp">
+    <ClCompile Include="Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CTime.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="myship.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CExploding.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
+    <ClCompile Include="Item.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSlot.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyMissile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstBoss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondBoss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LastBoss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMissile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="LastBossMissile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalEnemy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

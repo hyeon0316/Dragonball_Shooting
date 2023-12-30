@@ -1,11 +1,11 @@
 #include <Windows.h>
-#include "CSprite.h"
+#include "Sprite.h"
 
 //배경이미지
 static RECT destRect; 
 static RECT destRect2;
 
-CSprite::CSprite() {
+Sprite::Sprite() {
 	destRect.left = 0;
 	destRect.top = 0;
 	destRect.right = 1366;
@@ -21,7 +21,7 @@ CSprite::CSprite() {
 	m_pBMPArray = NULL;
 }
 
-CSprite::~CSprite() {
+Sprite::~Sprite() {
 	if (m_ppSurface)
 		delete[] m_ppSurface;
 
@@ -29,7 +29,7 @@ CSprite::~CSprite() {
 		delete[] m_pBMPArray;
 }
 
-bool CSprite::InitSprite(int nFrame, int nWidth, int nHeight, int nColorKey, LPDIRECTDRAW7 pDirectDraw) {
+bool Sprite::InitSprite(int nFrame, int nWidth, int nHeight, int nColorKey, LPDIRECTDRAW7 pDirectDraw) {
 	if (m_ppSurface)
 		delete[] m_ppSurface;
 
@@ -84,7 +84,7 @@ bool CSprite::InitSprite(int nFrame, int nWidth, int nHeight, int nColorKey, LPD
 	return true;
 }
 
-bool CSprite::LoadFrame(int nFrame, TCHAR* filename)
+bool Sprite::LoadFrame(int nFrame, TCHAR* filename)
 {
 	if (!m_pBMPArray[nFrame].LoadBMPFile(filename))
 		return false;
@@ -94,7 +94,7 @@ bool CSprite::LoadFrame(int nFrame, TCHAR* filename)
 	return true;
 }
 
-bool CSprite::Drawing(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bool bUsingColorKey)
+bool Sprite::Drawing(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bool bUsingColorKey)
 {
 	RECT destRect;
 
@@ -103,16 +103,7 @@ bool CSprite::Drawing(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, b
 	destRect.right = destRect.left + m_nWidth;
 	destRect.bottom = destRect.top + m_nHeight;
 
-	HRESULT hResult;
-	if (bUsingColorKey)
-	{
-		if (FAILED(hResult = pSurface->Blt(&destRect, m_ppSurface[nFrame], NULL, DDBLT_WAIT | DDBLT_KEYSRC, NULL)))
-			if (hResult == DDERR_SURFACELOST)
-				return (Restore());
-			else
-				return false;
-		// Blt() : 특정 영역에 서피스를 블리트하는 함수 **블리트: 서피스 간의 고속복사 ****플립(Flip) : 주표면과 보조표면의 주소를 서로 바꿈
-		// 원형 : HRESULT Blt ( LPRECT lpDestRect, LPDIRECTDRAWSURFACE7 lpDDSrcSurf, LPRECT lpSrcRect, DWORD dwFlags, LPDDBLTFX lpDDBltFx);
+	// Blt() : 특정 영역에 서피스를 블리트하는 함수 **블리트: 서피스 간의 고속복사 ****플립(Flip) : 주표면과 보조표면의 주소를 서로 바꿈
 		// 첫번째 인자값 lpDestRect는 목적 서피스의 어느부분에 그려줄 것인지 영역을 지정함. NULL 값이면 목적서피스 전체 영역에 그려지게 된다.
 		// 두번째 인자값 lpDDSrcSurf는 복사할 원본 서피스이다.
 		// 세번째 인자값 lpSrcRect는 원본 서피스에서 복사할 영역을 지정한다. NULL 값을 주면 원본 서피스 전체 영역이 된다.
@@ -128,19 +119,25 @@ bool CSprite::Drawing(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, b
 		// 다섯번째 인자값 lpDDBltFx는 DDBLTFX 구조체의 포인터이며, 이 구조체 값으로 회전, 대칭 등의 작업을 할 수 있다.
 		// 작업에 성공하면 DD_OK를 리턴하며, 실패하면 에러값을 돌려줌.
 		// destRect에 서피스인 m_ppSurface[nFrame] 전체를 복사한다. 블리트 작업이 성공할 때까지 계속 수행하며, 소스표면에 있는 색상키를 사용한다.
+	HRESULT hResult;
+	if (bUsingColorKey)
+	{
+		if (FAILED(hResult = pSurface->Blt(&destRect, m_ppSurface[nFrame], NULL, DDBLT_WAIT | DDBLT_KEYSRC, NULL)))
+			if (hResult == DDERR_SURFACELOST)
+				return (Restore());
+		return false;
 	}
 	else
 	{
 		if (FAILED(hResult = pSurface->Blt(&destRect, m_ppSurface[nFrame], NULL, DDBLT_WAIT, NULL)))
 			if (hResult == DDERR_SURFACELOST)
 				return (Restore());
-			else
-				return false;
+		return false;
 	}
 	return true;
 }
 
-bool CSprite::Restore()
+bool Sprite::Restore()
 {
 	if (!m_ppSurface)
 		return false;
@@ -159,12 +156,12 @@ bool CSprite::Restore()
 	return true;
 }
 
-int CSprite::GetNumberOfFrame()
+int Sprite::GetNumberOfFrame()
 {
 	return m_nFrame;
 }
 
-bool CSprite::ReleaseAll()
+bool Sprite::ReleaseAll()
 {
 	if (!m_ppSurface)
 		return false;
@@ -179,7 +176,7 @@ bool CSprite::ReleaseAll()
 
 }
 
-bool CSprite::Drawing2(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bool bUsingColorKey) //배경 무한스크롤
+bool Sprite::Drawing2(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bool bUsingColorKey) //배경 무한스크롤
 {
 	if (destRect.left >= 1366)
 	{

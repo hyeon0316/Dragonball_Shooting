@@ -117,6 +117,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,41 +141,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="CAnimation.h" />
-    <ClInclude Include="CBoss.h" />
     <ClInclude Include="CBMP.h" />
-    <ClInclude Include="CBossMissile.h" />
-    <ClInclude Include="CEnemy.h" />
-    <ClInclude Include="CEnemyMissile.h" />
-    <ClInclude Include="CExploding.h" />
-    <ClInclude Include="CGObject.h" />
-    <ClInclude Include="CRandom.h" />
-    <ClInclude Include="CSound.h" />
-    <ClInclude Include="CSprite.h" />
-    <ClInclude Include="CTimer.h" />
+    <ClInclude Include="BossMissile.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="NormalEnemy.h" />
+    <ClInclude Include="StageManager.h" />
+    <ClInclude Include="EnemyMissile.h" />
+    <ClInclude Include="FirstBoss.h" />
+    <ClInclude Include="GameEnum.h" />
+    <ClInclude Include="ItemSlot.h" />
+    <ClInclude Include="LastBoss.h" />
+    <ClInclude Include="LastBossMissile.h" />
+    <ClInclude Include="SecondBoss.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="Dsutil.h" />
-    <ClInclude Include="item.h" />
-    <ClInclude Include="mymissile.h" />
-    <ClInclude Include="myship.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="PlayerMissile.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossMissile.cpp" />
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CBMP.cpp" />
-    <ClCompile Include="CBoss.cpp" />
-    <ClCompile Include="CEnemy.cpp" />
-    <ClCompile Include="CExploding.cpp" />
-    <ClCompile Include="CGObject.cpp" />
-    <ClCompile Include="CRandom.cpp" />
-    <ClCompile Include="CSprite.cpp" />
-    <ClCompile Include="CTime.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="NormalEnemy.cpp" />
+    <ClCompile Include="StageManager.cpp" />
+    <ClCompile Include="EnemyMissile.cpp" />
+    <ClCompile Include="FirstBoss.cpp" />
+    <ClCompile Include="IntroMain.cpp" />
+    <ClCompile Include="ItemSlot.cpp" />
+    <ClCompile Include="LastBoss.cpp" />
+    <ClCompile Include="LastBossMissile.cpp" />
+    <ClCompile Include="SecondBoss.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Dsutil.cpp" />
-    <ClCompile Include="gamemain.cpp" />
+    <ClCompile Include="Gamemain.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="initDirectX.cpp" />
-    <ClCompile Include="item.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mymissile.cpp" />
-    <ClCompile Include="myship.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PlayerMissile.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
