@@ -1,8 +1,8 @@
 #include "BossMissile.h"
-#include"CAnimation.h"
+#include"Animation.h"
 #include "Player.h"
 
-extern CAnimation explosionEffects[MAX_EXPLODES];
+extern Animation explosionEffects[MAX_EXPLODES];
 extern Player player;
 
 BossMissile::BossMissile()
@@ -36,7 +36,7 @@ void BossMissile::Move()
 			}
 		}
 		m_Y += m_Dir;
-		m_X -= 5 * Timer::GetDeltaTime();
+		m_X -= 5;
 
 		if (m_X < 50)
 			Kill();
@@ -49,6 +49,7 @@ void BossMissile::SetExplosionEffect()
 	{
 		if (!explosionEffects[i].IsLive())
 		{
+			explosionEffects[i].InitCurFrame(0);
 			explosionEffects[i].Revive();
 			explosionEffects[i].SetXY(m_X, m_Y);
 			break;

@@ -1,12 +1,12 @@
 #include "Boss.h"
 #include "BossMissile.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include "LastBossMissile.h"
 
 extern BossMissile bossMissiles[MAX_BOSS_XMISSILES][MAX_BOSS_YMISSILES];
 extern LastBossMissile lastBossMissiles[MAX_LASTBOSS_XMISSILES];
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
-extern CAnimation bossSecondAttack;
+extern Animation bossSecondAttack;
 extern bool isHitReady;
 
 int dir[] = { -2,0,2 };
@@ -22,7 +22,7 @@ void Boss::FirstPattern()
 {
 	if (m_IsEntry)
 	{
-		m_X -= (1 + Timer::GetDeltaTime());
+		m_X -= 1;
 		if (m_X > 1000)
 		{
 			m_IsEntry = false;
@@ -40,7 +40,7 @@ void Boss::FirstPattern()
 			m_Dir = -2;
 			m_Y = SCREEN_HEIGHT;
 		}
-		m_Y += m_Dir * Timer::GetDeltaTime();
+		m_Y += m_Dir;
 
 		for (int i = 0; i < MAX_BOSS_XMISSILES; i++)
 		{

@@ -20,7 +20,7 @@
 #include"EnemyMissile.h"
 #include"BossMissile.h"
 #include "Item.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include "ItemSlot.h"
 #include "GameEnum.h"
 #include "FirstBoss.h"
@@ -88,6 +88,7 @@ Sprite g_ClearSprite;
 Sprite g_DeadSprite;
 Sprite g_LoadingSprite;
 
+Player player;
 EMod curMod;
 
 bool isActiveApp = false;
@@ -150,7 +151,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 		}
 		else if (isActiveApp)
 		{
-			Timer::UpdateDeltatime();
 			switch (curMod)
 			{
 			case EMod::Intro:

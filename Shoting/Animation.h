@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
 
-class CAnimation : public GameObject
+class Animation : public GameObject
 {
 public:
-	CAnimation()  = default;
-	~CAnimation() = default;
+	Animation()  = default;
+	~Animation() = default;
 	bool IsDrawEnd(LPDIRECTDRAWSURFACE7 lpSurface);
 	void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
 	void DrawFrame(int frame, LPDIRECTDRAWSURFACE7 lpSurface);

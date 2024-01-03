@@ -45,7 +45,7 @@ void IntroMain()
 	{
 		g_GameStartSprite.Drawing(0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 180, g_IpSecondarySurface, true);
 		g_QuitSprite.Drawing(0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 240, g_IpSecondarySurface, true);
-		if (DirectInputKeyboardDown(g_IpDirectInputKeyboard, DIK_SPACE))
+		if (DirectInputKeyboardDown(g_IpDirectInputKeyboard, DIK_RETURN))
 		{
 			curMod = EMod::Game;
 			SndObjStop(Sound[2]);
@@ -55,7 +55,7 @@ void IntroMain()
 	{
 		g_GameStartSprite.Drawing(1, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 180, g_IpSecondarySurface, true);
 		g_QuitSprite.Drawing(1, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 240, g_IpSecondarySurface, true);
-		if (DirectInputKeyboardDown(g_IpDirectInputKeyboard, DIK_SPACE))
+		if (DirectInputKeyboardDown(g_IpDirectInputKeyboard, DIK_RETURN))
 		{
 			curMod = EMod::Quit;
 			PostQuitMessage(0);

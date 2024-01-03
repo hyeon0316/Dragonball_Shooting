@@ -13,7 +13,7 @@
 #include"PlayerMissile.h"
 #include"EnemyMissile.h"
 #include"Item.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include"Dsutil.h"
 #include"define.h"
 #include "Player.h"
@@ -68,17 +68,17 @@ extern HSNDOBJ Sound[17];
 
 BossMissile bossMissiles[MAX_BOSS_XMISSILES][MAX_BOSS_YMISSILES];
 Item dropItem;
-Player player;
+extern Player player;
 PlayerMissile playerMissile[MAX_PLAYER_MISSILES];
 ItemSlot itemSlots[MAX_ITEM_SLOT];
 EnemyMissile enemyMissiles[MAX_ENEMY_MISSILES];
 LastBossMissile lastBossMissiles[MAX_LASTBOSS_XMISSILES];
-CAnimation explosionEffects[MAX_EXPLODES];
-CAnimation bossSecondAttack;
-CAnimation g_SkillScene;
-CAnimation g_Skill;
-CAnimation g_Boss3Intro;
-CAnimation g_Ending;
+Animation explosionEffects[MAX_EXPLODES];
+Animation bossSecondAttack;
+Animation g_SkillScene;
+Animation g_Skill;
+Animation g_Boss3Intro;
+Animation g_Ending;
 StageManager stageManager;
 
 bool isGameFirst = false;
@@ -87,35 +87,11 @@ bool isHitReady = false;
 
 vector<Enemy*> enemies;
 
+int i, j;
+
 void GameMain() {
 
 	if (isGameFirst) InitGame();
-
-	int i, j, k;
-
-	player.InputKey();
-	player.Draw(g_IpSecondarySurface);
-
-	for (i = 0; i < MAX_PLAYER_MISSILES; i++)
-	{
-		playerMissile[i].Move();
-		playerMissile[i].Draw(g_IpSecondarySurface);
-	}
-
-	if (player.CanSkill())
-	{
-		g_MaxPowerSprite.Drawing(0, 320, 90, g_IpSecondarySurface, true);
-	}
-	else
-	{
-		g_SkillLoadingBarSprite.Drawing(player.GetMp(), 180, 90, g_IpSecondarySurface, false);
-	}
-	g_PlayerIconSprite.Drawing(0, 45, 40, g_IpSecondarySurface, false);
-
-	for (i = 0; i < player.GetHp(); i++)
-	{
-		g_LifeSprite.Drawing(0, 120 + 50 * i, 40, g_IpSecondarySurface, true);
-	}
 
 	if (stageManager.IsFirstBoss())
 	{
@@ -146,6 +122,12 @@ void GameMain() {
 		}
 	}
 
+	for (i = 0; i < MAX_PLAYER_MISSILES; i++)
+	{
+		playerMissile[i].Move();
+		playerMissile[i].Draw(g_IpSecondarySurface);
+	}
+
 	for (i = 0; i < MAX_ITEM_SLOT; i++)
 	{
 		itemSlots[i].Draw(0, g_IpSecondarySurface);
@@ -155,12 +137,6 @@ void GameMain() {
 	{
 		enemies[i]->ExecutePattern();
 		enemies[i]->Draw(g_IpSecondarySurface);
-	}
-
-	for (i = 0; i < MAX_ENEMY_MISSILES; i++)
-	{
-		enemyMissiles[i].Draw(g_IpSecondarySurface);
-		enemyMissiles[i].Move();
 	}
 
 	bossSecondAttack.DrawFrame(0, g_IpSecondarySurface);
@@ -216,13 +192,33 @@ void GameMain() {
 	{
 		explosionEffects[i].Draw(g_IpSecondarySurface);
 	}
+	for (i = 0; i < MAX_ENEMY_MISSILES; i++)
+	{
+		enemyMissiles[i].Draw(g_IpSecondarySurface);
+		enemyMissiles[i].Move();
+	}
+
+	player.InputKey();
+	player.Draw(g_IpSecondarySurface);
+
+	if (player.CanSkill())
+	{
+		g_MaxPowerSprite.Drawing(0, 320, 90, g_IpSecondarySurface, true);
+	}
+	g_SkillLoadingBarSprite.Drawing(player.GetMp(), 180, 90, g_IpSecondarySurface, false);
+	g_PlayerIconSprite.Drawing(0, 45, 40, g_IpSecondarySurface, false);
+
+	for (i = 0; i < player.GetHp(); i++)
+	{
+		g_LifeSprite.Drawing(0, 120 + 50 * i, 40, g_IpSecondarySurface, true);
+	}
 
 	if (isGameDead)
 	{
 		g_DeadSprite.Drawing(0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, g_IpSecondarySurface, true);
 		if (DirectInputKeyboardDown(g_IpDirectInputKeyboard, DIK_Y))
 		{
-			isGameFirst = TRUE;
+			isGameFirst = true;
 			GameMain();
 			SndObjPlay(Sound[12], NULL);
 		}
@@ -255,7 +251,7 @@ BOOL DirectInputKeyboardDown(LPDIRECTINPUTDEVICE8 IpKeyboard, int dikcode) {
 }
 	
 /// <summary>
-/// 게임 초기화 기능(플레이어, 적 개수, 시작좌표, 체력, 이동속도, 발사체, 애니메이션, 아이템 등 설정)
+/// 게임 초기 셋팅
 /// </summary>
 void InitGame() {
 	int i, j;
@@ -303,6 +299,7 @@ void InitGame() {
 		g_Ending.Kill();
 	g_Ending.Initialize(false, &g_EndingSprite, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 30);
 
+	ClearEnemy();
 	for (i = 0; i < MAX_XENEMYS; i++)
 	{
 		for (j = 0; j < MAX_YENEMYS; j++)
@@ -370,6 +367,9 @@ void InitGame() {
 
 void ClearEnemy()
 {
+	if (enemies.size() == 0)
+		return;
+
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		delete enemies[i];

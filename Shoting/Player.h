@@ -1,5 +1,4 @@
 #pragma once
-#include<ddraw.h>
 #include "GameObject.h"
 #include "define.h"
 

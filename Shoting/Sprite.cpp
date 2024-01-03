@@ -120,6 +120,7 @@ bool Sprite::Drawing(int nFrame, int x, int y, LPDIRECTDRAWSURFACE7 pSurface, bo
 		// 작업에 성공하면 DD_OK를 리턴하며, 실패하면 에러값을 돌려줌.
 		// destRect에 서피스인 m_ppSurface[nFrame] 전체를 복사한다. 블리트 작업이 성공할 때까지 계속 수행하며, 소스표면에 있는 색상키를 사용한다.
 	HRESULT hResult;
+
 	if (bUsingColorKey)
 	{
 		if (FAILED(hResult = pSurface->Blt(&destRect, m_ppSurface[nFrame], NULL, DDBLT_WAIT | DDBLT_KEYSRC, NULL)))

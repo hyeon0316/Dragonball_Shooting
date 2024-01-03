@@ -5,7 +5,6 @@ static Timer g_Timer;
 Timer::Timer()
 	: m_StartTime(system_clock::now())
 	 ,m_PrevFrameTime(system_clock::now())
-	 ,m_DeltaTime(0.001f)
 {
 }
 
@@ -36,17 +35,4 @@ bool Timer::Elapsed(system_clock::time_point& time, int interval)
 	}
 
 	return false;
-}
-
-float Timer::GetDeltaTime()
-{
-	return g_Timer.m_DeltaTime;
-}
-
-void Timer::UpdateDeltatime()
-{
-	const system_clock::time_point curTime = system_clock::now();
-	const duration<float> frameTime = curTime - g_Timer.m_PrevFrameTime;
-	g_Timer.m_PrevFrameTime = curTime;
-	g_Timer.m_DeltaTime = frameTime.count();
 }

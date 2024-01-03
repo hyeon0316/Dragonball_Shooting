@@ -31,7 +31,7 @@ void Item::CheckArea()
 		{
 			for (int i = 0; i < MAX_ITEM_SLOT; i++)
 			{
-				if (itemSlots[i].GetItemSpriteIndex() == EMPTY_SLOT)
+				if (itemSlots[i].GetItemSpriteIndex() != EMPTY_SLOT)
 					continue;
 
 				itemSlots[i].SetItemSpriteIndex(m_CurrentFrame);

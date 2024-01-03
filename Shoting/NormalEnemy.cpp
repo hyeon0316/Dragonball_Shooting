@@ -11,6 +11,7 @@ int randAttack = 0;
 void NormalEnemy::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
 	m_Hp = 1;
+	m_Dir = 2;
 	Enemy::Initialize(isLive, pSprite, x, y, currentFrame, frameInterval, moveInterval);
 }
 
@@ -34,21 +35,22 @@ void NormalEnemy::ExecutePattern()
 		if (m_Y < 0)
 		{
 			m_Dir = 2;
+			m_X -= 60;
 		}
 		if (m_Y > SCREEN_HEIGHT)
 		{
 			m_Dir = -2;
+			m_X -= 60;
 		}
-		m_Y += m_Dir * Timer::GetDeltaTime();
-		m_X -= 60 * Timer::GetDeltaTime();
+		m_Y += m_Dir;
 
 		if (m_X < 80)
 			m_X = 1200;
 	}
 
 	//АјАн
-	randAttack = rand() % 150;
-	if (rand == 0)
+	randAttack = rand() % 5;
+	if (randAttack)
 	{
 		for (int i = 0; i < MAX_ENEMY_MISSILES; i++)
 		{

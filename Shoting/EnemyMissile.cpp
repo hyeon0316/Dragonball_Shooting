@@ -1,9 +1,9 @@
 #include "EnemyMissile.h"
 #include "Player.h"
-#include "CAnimation.h"
+#include "Animation.h"
 
 extern Player player;
-extern CAnimation explosionEffects[MAX_EXPLODES];
+extern Animation explosionEffects[MAX_EXPLODES];
 
 void EnemyMissile::Initialize(Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
@@ -31,7 +31,7 @@ void EnemyMissile::Move()
 			}
 		}
 
-		m_X -= 5 * Timer::GetDeltaTime();
+		m_X -= 5;
 		if (m_X < 0)
 			Kill();
 	}
@@ -43,6 +43,7 @@ void EnemyMissile::SetExplosionEffect()
 	{
 		if (!explosionEffects[i].IsLive())
 		{
+			explosionEffects[i].InitCurFrame(0);
 			explosionEffects[i].Revive();
 			explosionEffects[i].SetXY(m_X, m_Y);
 			break;
@@ -52,5 +53,5 @@ void EnemyMissile::SetExplosionEffect()
 
 void EnemyMissile::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	GameObject::Draw(m_X, m_Y, lpSurface, true);
+	GameObject::DrawTargetFrame(m_X, m_Y, m_CurrentFrame, lpSurface);
 }

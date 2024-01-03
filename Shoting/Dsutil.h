@@ -1,10 +1,11 @@
 #pragma once
+#include <dsound.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-	struct IDirectSoundBuffer;
-	struct IDirectSound;
+	//struct IDirectSoundBuffer;
+	//struct IDirectSound;
 
 	typedef struct
 	{

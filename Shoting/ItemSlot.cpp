@@ -27,12 +27,15 @@ void ItemSlot::UseItem()
 	{
 	case 0:
 		m_Item.PlusHp(3);
+		m_ItemSpriteIndex = EMPTY_SLOT;
 		break;
 	case 1:
 		m_Item.PlusMp(9);
+		m_ItemSpriteIndex = EMPTY_SLOT;
 		break;
 	case 2:
 		m_Item.OnBarrior();
+		m_ItemSpriteIndex = EMPTY_SLOT;
 		break;
 	default:
 		break;

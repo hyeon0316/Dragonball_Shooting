@@ -8,7 +8,6 @@
 #include <dinput.h>
 
 #include "define.h"
-#include "CSound.h"
 
 bool InitDirectDraw(void);
 bool InitDirectInput(void);

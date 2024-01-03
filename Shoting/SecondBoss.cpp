@@ -1,12 +1,12 @@
 #include "SecondBoss.h"
 #include "Dsutil.h"
 #include "StageManager.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include <dsound.h>
 
 extern HSNDOBJ Sound[17];
 extern StageManager stageManager;
-extern CAnimation g_Boss3Intro;
+extern Animation g_Boss3Intro;
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
 
 void SecondBoss::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)

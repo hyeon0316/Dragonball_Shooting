@@ -3,13 +3,13 @@
 #include "define.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include "FirstBoss.h"
 #include "SecondBoss.h"
 #include "LastBoss.h"
 
 extern Player player;
-extern CAnimation explosionEffects[MAX_EXPLODES];
+extern Animation explosionEffects[MAX_EXPLODES];
 extern vector<Enemy*> enemies;
 
 void PlayerMissile::Initialize(Sprite* pSprite, int x, int y, int currentFrame, int framelnterval, int moveInterval)
@@ -42,7 +42,7 @@ void PlayerMissile::Move()
 			}
 		}
 
-		m_X += 8 * Timer::GetDeltaTime(); 
+		m_X += 8; 
 		if (m_X > 1330)
 		{
 			Kill();
@@ -61,6 +61,7 @@ void PlayerMissile::SetExplosionEffect()
 	{
 		if (!explosionEffects[i].IsLive())
 		{
+			explosionEffects[i].InitCurFrame(0);
 			explosionEffects[i].Revive();
 			explosionEffects[i].SetXY(m_X, m_Y);
 			break;

@@ -1,10 +1,10 @@
 #include "LastBoss.h"
-#include "CAnimation.h"
+#include "Animation.h"
 #include "StageManager.h"
 #include "Dsutil.h"
 #include "GameEnum.h"
 
-extern CAnimation g_Ending;
+extern Animation g_Ending;
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
 extern StageManager stageManager;
 extern HSNDOBJ Sound[17];

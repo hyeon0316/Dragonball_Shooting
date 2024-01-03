@@ -4,7 +4,7 @@
 #include "PlayerMissile.h"
 #include "Dsutil.h"
 #include "ItemSlot.h"
-#include "CAnimation.h"
+#include "Animation.h"
 
 extern BOOL DirectInputKeyboardDown(LPDIRECTINPUTDEVICE8 lpKeyboard, int dikcode);
 extern LPDIRECTINPUTDEVICE8 g_IpDirectInputKeyboard;
@@ -13,10 +13,11 @@ extern PlayerMissile playerMissile[MAX_PLAYER_MISSILES];
 extern ItemSlot itemSlots[MAX_ITEM_SLOT];
 extern HSNDOBJ Sound[17];
 
-extern CAnimation g_SkillScene;
-extern CAnimation g_Skill;
+extern Animation g_SkillScene;
+extern Animation g_Skill;
 
 extern bool	isGameDead;
+
 Player::Player()
 	: m_MaxHp(5)
 	, m_MaxMp(PLAYER_MAX_MP)
@@ -32,10 +33,8 @@ Player::Player()
 
 void Player::Initialize(Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
-	new Player();
-
-	m_Hp = m_MaxHp;
 	GameObject::Initialize(true, pSprite, x, y, currentFrame, frameInterval);
+	m_Hp = m_MaxHp;
 	m_MoveInterval = moveInterval;
 }
 
@@ -55,8 +54,9 @@ void Player::PlusMp(int value)
 
 void Player::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 {
-	GameObject::Draw(m_X, m_Y, lpSurface, true);
+	GameObject::DrawTargetFrame(m_X, m_Y, m_CurrentFrame, lpSurface);
 }
+
 bool Player::CanMove()
 {
 	if (!m_IsLive)
@@ -156,7 +156,7 @@ void Player::Skill()
 
 void Player::InputKey()
 {
-	if(!m_IsAttacking) //TODO: 테스트
+	if(!m_IsAttacking) //TODO: 공격 모션 수정
 		m_CurrentFrame = 0;
 
 	if (CanMove())

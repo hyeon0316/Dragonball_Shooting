@@ -1,6 +1,6 @@
-#include "CAnimation.h" 
+#include "Animation.h" 
 
-void CAnimation::DrawFrame(int frame, LPDIRECTDRAWSURFACE7 lpSurface)
+void Animation::DrawFrame(int frame, LPDIRECTDRAWSURFACE7 lpSurface)
 {
 	if (!m_IsLive)
 		return;
@@ -8,7 +8,7 @@ void CAnimation::DrawFrame(int frame, LPDIRECTDRAWSURFACE7 lpSurface)
 	GameObject::DrawTargetFrame(m_X, m_Y, frame, lpSurface);
 }
 
-void CAnimation::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
+void Animation::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 {
 	if (!m_IsLive)
 		return;
@@ -20,7 +20,7 @@ void CAnimation::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
 	GameObject::Draw(m_X, m_Y, lpSurface, true);
 }
 
-bool CAnimation::IsDrawEnd(LPDIRECTDRAWSURFACE7 lpSurface)
+bool Animation::IsDrawEnd(LPDIRECTDRAWSURFACE7 lpSurface)
 {
 	if (!m_IsLive)
 		return false;
@@ -34,7 +34,7 @@ bool CAnimation::IsDrawEnd(LPDIRECTDRAWSURFACE7 lpSurface)
 	return false;
 }
 
-void CAnimation::DrawEnding(LPDIRECTDRAWSURFACE7 lpSurface)
+void Animation::DrawEnding(LPDIRECTDRAWSURFACE7 lpSurface)
 {
 	GameObject::Draw(m_X, m_Y, lpSurface, false);
 	if (m_CurrentFrame >= 206)

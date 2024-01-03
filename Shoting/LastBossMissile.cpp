@@ -1,9 +1,9 @@
 #include "LastBossMissile.h"
 #include "define.h"
-#include"CAnimation.h"
+#include"Animation.h"
 #include "Player.h"
 
-extern CAnimation explosionEffects[MAX_EXPLODES];
+extern Animation explosionEffects[MAX_EXPLODES];
 extern Player player;
 
 LastBossMissile::LastBossMissile()
@@ -37,7 +37,7 @@ void LastBossMissile::Move()
 			}
 		}
 
-		m_Y += 5 * Timer::GetDeltaTime();
+		m_Y += 5;
 
 		if (m_Y > 800)
 			Kill();
@@ -50,6 +50,7 @@ void LastBossMissile::SetExplosionEffect()
 	{
 		if (!explosionEffects[i].IsLive())
 		{
+			explosionEffects[i].InitCurFrame(0);
 			explosionEffects[i].Revive();
 			explosionEffects[i].SetXY(m_X, m_Y);
 			break;

@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Boss.h" />
-    <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="CBMP.h" />
     <ClInclude Include="BossMissile.h" />
     <ClInclude Include="Enemy.h" />
@@ -167,7 +167,7 @@
   <ItemGroup>
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossMissile.cpp" />
-    <ClCompile Include="CAnimation.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="CBMP.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="NormalEnemy.cpp" />

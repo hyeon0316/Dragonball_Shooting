@@ -15,8 +15,8 @@ public:
 	float GetX() const;
 	float GetY() const;
 	void SetXY(float x, float y);
+	void InitCurFrame(int frame);
 	bool IsLive() const;
-
 protected:
 	float m_X;
 	float m_Y;
@@ -28,6 +28,11 @@ protected:
 private:
 	system_clock::time_point m_LastFrameTime;
 };
+
+inline void GameObject::InitCurFrame(int frame)
+{
+	m_CurrentFrame = frame;
+}
 
 inline void GameObject::Revive()
 {
