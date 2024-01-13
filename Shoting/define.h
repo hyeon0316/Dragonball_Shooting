@@ -1,25 +1,21 @@
 #pragma once
 
-#define CLASS_NAME "DIrectX for Shooting"
-
-#define PLAYER_MAX_MP 8
-#define MAX_EXPLODES 10
-#define MAX_XENEMYS 5
-#define MAX_YENEMYS 5
-#define MAX_PLAYER_MISSILES 10
-#define MAX_ENEMY_MISSILES 25
-#define MAX_BOSS_XMISSILES 5
-#define MAX_BOSS_YMISSILES 3
-#define MAX_LASTBOSS_XMISSILES 10
-#define MAX_BOSS3_YMISSILES 10
-#define MAX_ITEM_SLOT 3
-#define EMPTY_SLOT -1
-#define MY_MISSILE_INTRVAL 240
-#define BOSS_MISSILE_INTERVAL 100
-
-const int SCREEN_WIDTH = 1366;
-const int SCREEN_HEIGHT = 768;
-const int COLOR_DEPTH = 32;
-
-const int COLOR_KEY = 0;
+constexpr int PLAYER_MAX_MP = 8;
+constexpr int MAX_EXPLODES = 10;
+constexpr int MAX_XENEMYS = 5;
+constexpr int MAX_YENEMYS = 5;
+constexpr int MAX_PLAYER_MISSILES = 10;
+constexpr int MAX_ENEMY_MISSILES = 25;
+constexpr int MAX_BOSS_XMISSILES = 5;
+constexpr int MAX_BOSS_YMISSILES = 3;
+constexpr int MAX_LASTBOSS_XMISSILES = 10;
+constexpr int MAX_BOSS3_YMISSILES = 10;
+constexpr int MAX_ITEM_SLOT = 3;
+constexpr int EMPTY_SLOT = -1;
+constexpr int MY_MISSILE_INTRVAL = 240;
+constexpr int BOSS_MISSILE_INTERVAL = 100;
+constexpr int SCREEN_WIDTH = 1366;
+constexpr int SCREEN_HEIGHT = 768;
+constexpr int COLOR_DEPTH = 32;
+constexpr int COLOR_KEY = 0;
 
