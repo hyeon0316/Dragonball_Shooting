@@ -11,21 +11,31 @@
 ## 소개 영상
 - https://youtu.be/k7A51_PhnA4
 
+## 구현 및 시도 목록
+- 상속 구조 및 virtual 키워드 사용하여 다형성 구현
+- 오브젝트를 매번 생성하지 않고 풀링하여 재사용
+- 전체적인 구조 수정 및 리팩토링
+
 ## 코드 목록
-- 스프라이트 그리기(순차적으로 표시(애니메이션), 배경 무한스크롤, 스킬 표현 등)
-https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CGObject.cpp#L12-L58
-https://github.com/hyeon0316/Dragonball_Shooting/blob/0c62a358674f8912d1c1b49ad0bb49333aadea45/Shoting/CSprite.cpp#L32-L222
+- 게임 로직
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Gamemain.cpp#L95-L414
 
-- 경과된 시간 값을 통해 플레이어, 적, 발사체 움직임 등 여러 동작에 사용되는 시간 측정
-https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/CTime.cpp#L14-L34
-<br/>
+- 오브젝트 상속 구조(플레이어, 적 등 다양한 오브젝트에 사용)
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/GameObject.cpp#L1-L46
 
-- 스폰되는 적과 플레이어의 기본적인 스탯과 피격 판정, 패턴 결정 등 전체적인 게임진행 관리
-https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/gamemain.cpp#L1210-L1307
-https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/gamemain.cpp#L1309-L1349
-<br/>
+- 플레이어 로직
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Player.cpp#L20-L200
 
-- 보스의 발사체, 움직임에 대한 패턴 정의
-https://github.com/hyeon0316/Dragonball_Shooting/blob/c2da5ed6916be5215312fc4454da974bb014062e/Shoting/CBoss.cpp#L33-L118
+- 적 로직
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Enemy.cpp#L7-L38
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Boss.cpp#L16-L148
 
+- 적 스폰 관리
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/StageManager.cpp#L10-L73
 
+- 애니메이션 재생(스프라이트를 순차적으로 보여줌)
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Animation.cpp#L3-L42
+
+- 스프라이트 그리기
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Sprite.cpp#L97-L139
+https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Sprite.cpp#L180-L220
