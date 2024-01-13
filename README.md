@@ -39,3 +39,6 @@ https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747
 - 스프라이트 그리기
 https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Sprite.cpp#L97-L139
 https://github.com/hyeon0316/Dragonball_Shooting/blob/695ccbda2dad9a6197e71f0747133dc08b1e7a34/Shoting/Sprite.cpp#L180-L220
+
+- 시간 기록
+https://github.com/hyeon0316/Dragonball_Shooting/blob/b0b77135ca91de62d73ddcd1cca11c6094bb92ca/Shoting/Timer.cpp#L5-L38
