@@ -10,7 +10,6 @@ public:
 	void Initialize(Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval);
 	void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
 	void SetMp(int mp);
-	void DrawSkill();
 	void PlusMp(int value);
 	void SetHp(int value);
 	int GetHp() const;
@@ -72,6 +71,7 @@ inline int Player::GetMaxMp() const
 
 inline void Player::Left()
 {
+	m_IsAttacking = false;
 	m_CurrentFrame = 1;
 	m_X -= 5;
 	if (m_X < 30) //width의 최소범위 30
@@ -82,6 +82,7 @@ inline void Player::Left()
 
 inline void Player::Right()
 {
+	m_IsAttacking = false;
 	m_CurrentFrame = 2;
 	m_X += 5;
 	if (m_X > 1366)
@@ -102,6 +103,7 @@ inline void Player::Up()
 
 inline void Player::Down()
 {
+	m_IsAttacking = false;
 	m_CurrentFrame = 4;
 	m_Y += 5;
 	if (m_Y > 770)

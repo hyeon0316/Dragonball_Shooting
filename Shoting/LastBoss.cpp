@@ -8,8 +8,7 @@ extern Animation g_Ending;
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
 extern StageManager stageManager;
 extern HSNDOBJ Sound[17];
-extern EMod curMod;
-extern bool m_bIntroFirst;
+extern Animation bossSecondAttack;
 
 void LastBoss::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
@@ -50,18 +49,10 @@ void LastBoss::TakeDamage(int value)
 
 void LastBoss::Kill()
 {
+	bossSecondAttack.Kill();
 	SndObjStop(Sound[15]);
 	SndObjPlay(Sound[16], NULL);
 	stageManager.SetLastBoss(false);
 	g_Ending.Revive();
 	Enemy::Kill();
-	while (true)
-	{
-		if (g_Ending.IsDrawEnd(g_IpSecondarySurface))
-		{
-			m_bIntroFirst = true;
-			curMod = EMod::Intro;
-			break;
-		}
-	}
 }

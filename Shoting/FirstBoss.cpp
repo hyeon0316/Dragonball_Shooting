@@ -8,7 +8,7 @@ extern StageManager stageManager;
 
 void FirstBoss::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
-	Enemy::Initialize(false, pSprite, x, y, currentFrame, frameInterval, moveInterval);
+	Boss::Initialize(false, pSprite, x, y, currentFrame, frameInterval, moveInterval);
 	m_Hp = 20;
 	m_Dir = 2;
 	m_IsEntry = true;

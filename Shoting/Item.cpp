@@ -94,8 +94,7 @@ void Item::PlusHp(int plusHp)
 
 void Item::PlusMp(int plusMp)
 {
-	int result = plusMp + player.GetMp();
-	player.SetMp(result > player.GetMaxMp() ? player.GetMaxMp() : result);
+	player.PlusMp(plusMp);
 }
 
 void Item::OnBarrior()

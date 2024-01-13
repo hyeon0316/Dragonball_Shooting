@@ -32,9 +32,10 @@ void PlayerMissile::Move()
 			{
 				if (abs(enemies[i]->GetX() - m_X) < 30)
 				{
-					if (abs(enemies[i]->GetY() - m_Y) < 30)
+					if (abs(enemies[i]->GetY() - m_Y) < 45)
 					{
 						enemies[i]->TakeDamage(1);
+						player.PlusMp(1);
 						SetExplosionEffect();
 						Kill();
 					}

@@ -8,7 +8,7 @@ public:
 	Enemy() = default;
 	~Enemy() = default;
 	virtual void Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval);
-	void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
+	virtual void Draw(LPDIRECTDRAWSURFACE7 lpSurface);
 	virtual void ExecutePattern() = 0;
 	virtual void TakeDamage(int value) = 0;
 	virtual void Kill();

@@ -25,6 +25,7 @@
 #include "BossMissile.h"
 #include "LastBossMissile.h"
 #include "StageManager.h"
+#include "GameEnum.h"
 
 void InitGame();
 void ClearEnemy();
@@ -65,10 +66,12 @@ extern Sprite g_MaxPowerSprite;
 extern Sprite g_Boss3Sprite;
 extern Sprite g_Boss2Sprite;
 extern HSNDOBJ Sound[17];
+extern EMod curMod;
+extern bool m_bIntroFirst;
 
 BossMissile bossMissiles[MAX_BOSS_XMISSILES][MAX_BOSS_YMISSILES];
 Item dropItem;
-extern Player player;
+Player player;
 PlayerMissile playerMissile[MAX_PLAYER_MISSILES];
 ItemSlot itemSlots[MAX_ITEM_SLOT];
 EnemyMissile enemyMissiles[MAX_ENEMY_MISSILES];
@@ -146,6 +149,9 @@ void GameMain() {
 		{
 			if (abs(bossSecondAttack.GetY() - player.GetY()) < 30)
 			{
+				explosionEffects[MAX_EXPLODES - 1].InitCurFrame(0);
+				explosionEffects[MAX_EXPLODES - 1].Revive();
+				explosionEffects[MAX_EXPLODES - 1].SetXY(player.GetX(), player.GetY());
 				player.TakeDamage(3);
 				isHitReady = false;
 			}
@@ -158,6 +164,13 @@ void GameMain() {
 		{
 			if (enemies[i]->IsLive())
 			{
+				if (Boss* boss = dynamic_cast<Boss*>(enemies[i]))
+				{
+					if (boss->GetEntryStatus())
+					{
+						continue;
+					}
+				}
 				enemies[i]->TakeDamage(30);
 			}
 		}
@@ -211,6 +224,27 @@ void GameMain() {
 	for (i = 0; i < player.GetHp(); i++)
 	{
 		g_LifeSprite.Drawing(0, 120 + 50 * i, 40, g_IpSecondarySurface, true);
+	}
+
+	if (g_SkillScene.IsDrawEnd(g_IpSecondarySurface))
+	{
+		SndObjPlay(Sound[9], NULL);
+		SndObjPlay(Sound[10], NULL);
+		g_Skill.SetXY(player.GetX() + 650, player.GetY());
+		g_Skill.Revive();
+		g_Skill.InitCurFrame(0);
+	}
+	g_Skill.Draw(g_IpSecondarySurface);
+
+	if (g_Boss3Intro.IsDrawEnd(g_IpSecondarySurface))
+	{
+		stageManager.SetLastBoss(true);
+	}
+
+	if (g_Ending.IsDrawEnd(g_IpSecondarySurface))
+	{
+		m_bIntroFirst = true;
+		curMod = EMod::Intro;
 	}
 
 	if (isGameDead)
@@ -285,7 +319,7 @@ void InitGame() {
 
 	if (g_Skill.IsLive())
 		g_Skill.Kill();
-	g_Skill.Initialize(false, &g_SkillSprite, player.GetX() + 650, player.GetY(), 0, 170);
+	g_Skill.Initialize(false, &g_SkillSprite, 0, 0, 0, 170);
 
 	if (bossSecondAttack.IsLive()) 
 		bossSecondAttack.Kill(); 
@@ -304,21 +338,21 @@ void InitGame() {
 	{
 		for (j = 0; j < MAX_YENEMYS; j++)
 		{
-			Enemy* enemy = new NormalEnemy();
+			NormalEnemy* enemy = new NormalEnemy();
 			enemy->Initialize(true, &g_EnemySprite, 800 + (i + 1) * 100, (j + 1) * 60, 0, 25, 5);
 			enemies.push_back(enemy);
 		}
 	}
 
-	Enemy* firstBoss = new FirstBoss();
-	firstBoss->Initialize(false, &g_Boss1Sprite, 1500, 300, 0, 25, 5);
+	FirstBoss* firstBoss = new FirstBoss();
+	firstBoss-> Initialize(false, &g_Boss1Sprite, 1500, 300, 0, 25, 5);
 	enemies.push_back(firstBoss);
 
-	Enemy* secondBoss = new SecondBoss();
+	SecondBoss* secondBoss = new SecondBoss();
 	secondBoss->Initialize(false, &g_Boss2Sprite, 1500, 300, 0, 25, 5);
 	enemies.push_back(secondBoss);
 
-	Enemy* lastBoss = new LastBoss();
+	LastBoss* lastBoss = new LastBoss();
 	lastBoss->Initialize(false, &g_Boss3Sprite, 1500, 300, 0, 25, 5);
 	enemies.push_back(lastBoss);
 

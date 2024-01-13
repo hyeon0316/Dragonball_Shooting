@@ -19,30 +19,14 @@ private:
 	bool m_IsLastBoss;
 };
 
-inline void StageManager::SetFirstBoss(bool isActive)
-{
-	m_IsFirstBoss = isActive;
-}
-
 inline bool StageManager::IsFirstBoss() const
 {
 	return m_IsFirstBoss;
 }
 
-inline void StageManager::SetSecondBoss(bool isActive)
-{
-	m_IsSecondBoss = isActive;
-}
-
-
 inline bool StageManager::IsSecondBoss() const
 {
 	return m_IsSecondBoss;
-}
-
-inline void StageManager::SetLastBoss(bool isActive)
-{
-	m_IsLastBoss = isActive;
 }
 
 inline bool StageManager::IsLastBoss() const

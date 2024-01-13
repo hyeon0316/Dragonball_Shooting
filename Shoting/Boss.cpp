@@ -11,25 +11,29 @@ extern bool isHitReady;
 
 int dir[] = { -2,0,2 };
 int movePos[3] = { 100,425,700 };
+int missileTime = 0;
 
 void Boss::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
 	Enemy::Initialize(isLive, pSprite, x, y, currentFrame, frameInterval, moveInterval);
 	m_CanSkill = false;
+	m_IsSecondAttacking = false;
 	m_TeleportTime = Timer::Now();
 }
 void Boss::FirstPattern()
 {
 	if (m_IsEntry)
 	{
+		m_CurrentFrame = 0;
 		m_X -= 1;
-		if (m_X > 1000)
+		if (m_X < 1000)
 		{
 			m_IsEntry = false;
 		}
 	}
 	else
 	{
+		m_CurrentFrame = 1;
 		if (m_Y <= 50)
 		{
 			m_Dir = 2;
@@ -44,21 +48,27 @@ void Boss::FirstPattern()
 
 		for (int i = 0; i < MAX_BOSS_XMISSILES; i++)
 		{
-			for (int j = 0; j < MAX_BOSS_YMISSILES; j++)
+			if (missileTime % 51 == 0)
 			{
-				if (!bossMissiles[i][j].IsLive())
+				for (int j = 0; j < MAX_BOSS_YMISSILES; j++)
 				{
-					bossMissiles[i][j].Revive();
-					bossMissiles[i][j].SetXY(m_X - 80, m_Y);
-					bossMissiles[i][j].SetDir(dir[j]);
+					if (!bossMissiles[i][j].IsLive())
+					{
+						bossMissiles[i][j].Revive();
+						bossMissiles[i][j].SetXY(m_X - 80, m_Y);
+						bossMissiles[i][j].SetDir(dir[j]);
+					}
 				}
 			}
+			missileTime++;
 		}
 	}
 }
 
 void Boss::SecondPattern()
 {
+	m_IsEntry = false;
+	m_X = 1000;
 	if (!m_CanSkill)
 	{
 		if (Timer::Elapsed(m_TeleportTime, 2000))
@@ -72,11 +82,12 @@ void Boss::SecondPattern()
 	}
 	else
 	{
-		if (!isHitReady)
+		if (!isHitReady && !m_IsSecondAttacking)
 		{
 			if (Timer::Elapsed(m_SkillTime, 1000)) 
 			{
 				isHitReady = true;
+				m_IsSecondAttacking = true;
 				bossSecondAttack.Revive();
 				bossSecondAttack.SetXY(m_X - 515, m_Y - 15);
 				m_CurrentFrame = 3;
@@ -88,12 +99,15 @@ void Boss::SecondPattern()
 		{
 			bossSecondAttack.Kill();
 			m_CanSkill = false;
+			isHitReady = false;
+			m_IsSecondAttacking = false;
 		}
 	}
 }
 
 void Boss::LastPattern()
 {
+	m_IsEntry = false;
 	m_X = 1200;
 	m_Y = 384;
 	m_CurrentFrame = 4;
@@ -104,6 +118,7 @@ void Boss::LastPattern()
 		{
 			if (rand() % 2 == 0)
 			{
+				lastBossMissiles[i].InitCurFrame(0);
 				lastBossMissiles[i].Revive();
 				lastBossMissiles[i].SetXY(rand() % SCREEN_WIDTH, 0);
 			}
@@ -125,4 +140,9 @@ void Boss::SetPattern(int order)
 	{
 		LastPattern();
 	}
+}
+
+void Boss::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
+{
+	GameObject::DrawTargetFrame(m_X, m_Y, m_CurrentFrame, lpSurface);
 }

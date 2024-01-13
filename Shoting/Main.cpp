@@ -88,7 +88,6 @@ Sprite g_ClearSprite;
 Sprite g_DeadSprite;
 Sprite g_LoadingSprite;
 
-Player player;
 EMod curMod;
 
 bool isActiveApp = false;
@@ -581,14 +580,16 @@ bool LoadBMPandInitSurface() {
 		return false;
 
 
-	if (!g_Boss1Sprite.InitSprite(1, 61, 91, COLOR_KEY, g_IpDirectDrawObject))
+	if (!g_Boss1Sprite.InitSprite(2, 105, 91, COLOR_KEY, g_IpDirectDrawObject))
 		return false;
-	if (!g_Boss1Sprite.LoadFrame(0, TEXT("data\\Boss1.bmp")))
+	if (!g_Boss1Sprite.LoadFrame(0, TEXT("data\\boss1.bmp")))
+		return false;
+	if (!g_Boss1Sprite.LoadFrame(1, TEXT("data\\boss1_atk1.bmp")))
 		return false;
 
 	if (!g_Boss2Sprite.InitSprite(4, 105, 93, COLOR_KEY, g_IpDirectDrawObject))
 		return false;
-	if (!g_Boss2Sprite.LoadFrame(0, TEXT("data\\Boss2.bmp")))
+	if (!g_Boss2Sprite.LoadFrame(0, TEXT("data\\boss2.bmp")))
 		return false;
 	if (!g_Boss2Sprite.LoadFrame(1, TEXT("data\\boss2_baseatk.bmp")))
 		return false;

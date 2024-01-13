@@ -8,6 +8,7 @@ extern HSNDOBJ Sound[17];
 extern StageManager stageManager;
 extern Animation g_Boss3Intro;
 extern LPDIRECTDRAWSURFACE7 g_IpSecondarySurface;
+extern Animation bossSecondAttack;
 
 void SecondBoss::Initialize(bool isLive, Sprite* pSprite, int x, int y, int currentFrame, int frameInterval, int moveInterval)
 {
@@ -44,6 +45,7 @@ void SecondBoss::TakeDamage(int value)
 
 void SecondBoss::Kill()
 {
+	bossSecondAttack.Kill();
 	g_Boss3Intro.Revive();
 	stageManager.SetSecondBoss(false);
 	SndObjStop(Sound[0]);
@@ -51,13 +53,6 @@ void SecondBoss::Kill()
 	SndObjPlay(Sound[14], NULL); 
 	SndObjPlay(Sound[15], DSBPLAY_LOOPING);
 	Enemy::Kill();
-	while (true)
-	{
-		if (g_Boss3Intro.IsDrawEnd(g_IpSecondarySurface))
-		{
-			stageManager.SetLastBoss(true);
-			break;
-		}
-	}
+	g_Boss3Intro.Revive();
 }
 

@@ -14,7 +14,6 @@ extern ItemSlot itemSlots[MAX_ITEM_SLOT];
 extern HSNDOBJ Sound[17];
 
 extern Animation g_SkillScene;
-extern Animation g_Skill;
 
 extern bool	isGameDead;
 
@@ -41,15 +40,19 @@ void Player::Initialize(Sprite* pSprite, int x, int y, int currentFrame, int fra
 void Player::SetMp(int mp)
 {
 	m_Mp = mp;
-	if(CanSkill())
-		SndObjPlay(Sound[5], NULL);
 }
 
 void Player::PlusMp(int value)
 {
+	if (m_Mp == m_MaxMp)
+		return;
+		
 	m_Mp += value;
-	if (m_Mp > m_MaxMp)
+	if (m_Mp >= m_MaxMp)
+	{
+		SndObjPlay(Sound[5], NULL);
 		m_Mp = m_MaxMp;
+	}
 }
 
 void Player::Draw(LPDIRECTDRAWSURFACE7 lpSurface)
@@ -125,38 +128,19 @@ bool Player::CanSkill()
 	return m_Mp == m_MaxMp;
 }
 
-void Player::DrawSkill()
-{
-	g_Skill.Revive();
-	g_Skill.SetXY(m_X + 650, m_Y);
-	while (true)
-	{
-		if (g_Skill.IsDrawEnd(g_IpSecondarySurface))
-		{
-			break;
-		}
-	}
-}
-
 void Player::Skill()
 {
+	m_IsAttacking = false;
 	SetMp(0);
 	SndObjPlay(Sound[8], NULL);
 	SetXY(100, SCREEN_HEIGHT / 2);
+	g_SkillScene.InitCurFrame(0);
 	g_SkillScene.Revive();
-	while (true)
-	{
-		if (g_SkillScene.IsDrawEnd(g_IpSecondarySurface))
-		{
-			DrawSkill();
-			break;
-		}
-	}
 }
 
 void Player::InputKey()
 {
-	if(!m_IsAttacking) //TODO: 공격 모션 수정
+	if(!m_IsAttacking) 
 		m_CurrentFrame = 0;
 
 	if (CanMove())
@@ -212,7 +196,5 @@ void Player::InputKey()
 	{
 		itemSlots[2].UseItem();
 	}
-
-	m_IsAttacking = false;
 }
 
