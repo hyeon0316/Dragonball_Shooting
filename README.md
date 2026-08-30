@@ -1,4 +1,4 @@
-# DragonBall Shooting
+# 학교 과제 - DragonBall Shooting
 
 ## 프로젝트 정보
 - 기간 : 2020/06/10 ~ 2020/07/15
