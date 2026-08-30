@@ -6,9 +6,6 @@
 - 플랫폼 : PC
 - 도구 : DirectX9, WinAPI, C++
 
-## 영상 자료
-- https://youtu.be/k7A51_PhnA4
-
 ## 코드 
 ### BMP 로딩 최적화
 
