@@ -12,12 +12,16 @@
 ## 코드 
 ### BMP 로딩 최적화
 - 원본
+
+기존 코드는 픽셀을 1개씩 읽기에 전체 시스템 콜 회수가 1920x1080 기준으로 기하급수적 증가가 원인이 되어 게임 시작전 로딩 속도가 많이 느린 상태였음.
 ```
+	RGBstruct rgb24; //픽셀 1개짜리 버퍼
+
 	for (int y = 0; y < nHeight; y++)
 	{
 		for (int x = 0; x < m_nWidth; x++)
 		{
-			if (!ReadFile(hfile, &rgb24, 3, &actualRead, NULL))
+			if (!ReadFile(hfile, &rgb24, 3, &actualRead, NULL)) //픽셀마다 시스템 콜
 			{
 				CloseHandle(hfile);
 				delete[] m_pBuffer;
@@ -38,6 +42,9 @@
 	}
 ```
 - 수정
+  
+픽셀 1개 -> 한줄 크기의 버퍼로 수정
+https://github.com/hyeon0316/Dragonball_Shooting/blob/5fa5612e7a5917455fac0c3e76697bee4ea21faf/Shoting/CBMP.cpp#L116
 https://github.com/hyeon0316/Dragonball_Shooting/blob/58a066583ca22275013741cb768e897bf400888f/Shoting/CBMP.cpp#L133-L154
 
 
